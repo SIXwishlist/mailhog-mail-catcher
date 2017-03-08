@@ -1,0 +1,54 @@
+#!/usr/bin/with-contenv sh
+
+# Master admin email must be informed
+if [ -z "$DASPANEL_HOST" ]; then
+    echo "***"
+    echo "ERROR: You must set the env variable DASPANEL_HOST to a valid value"
+    echo "***"
+    exit 1
+fi
+
+if [ -z "$DASPANEL_MAIL_HUB" ]; then
+    echo "***"
+    echo "ERROR: You must set the env variable DASPANEL_MAIL_HUB"
+    echo "***"
+    exit 1
+fi
+
+if [ -z "$DASPANEL_MAIL_SERVER" ]; then
+    echo "***"
+    echo "ERROR: You must set the env variable DASPANEL_MAIL_SERVER"
+    echo "***"
+    exit 1
+fi
+
+if [ -z "$DASPANEL_MAIL_USER" ]; then
+    echo "***"
+    echo "ERROR: You must set the env variable DASPANEL_MAIL_USER"
+    echo "***"
+    exit 1
+fi
+
+if [ -z "$DASPANEL_MAIL_PWD" ]; then
+    echo "***"
+    echo "ERROR: You must set the env variable DASPANEL_MAIL_PWD"
+    echo "***"
+    exit 1
+fi
+
+MAIL_CATCH_PWD = `MailHog bcrypt $DASPANEL_MASTER_PASSWORD; echo`
+
+log() {
+  if [[ "$@" ]]; then echo "[`date +'%Y-%m-%d %T'`] $@";
+  else echo; fi
+}
+
+# Configure Mailhog
+/usr/bin/templater -d \
+  -o /etc/daspanel/mailhog/auth.db \
+  /opt/daspanel/conf-templates/etc/mailhog/auth.db.tmpl
+
+# secure daspanel
+chown -R daspanel:daspanel /opt/daspanel/data
+chown -R daspanel:daspanel /opt/daspanel/log
+
