@@ -1,5 +1,6 @@
 # App source code
 src/
+buildlog.txt
 
 # App data dir
 data/

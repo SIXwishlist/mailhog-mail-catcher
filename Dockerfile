@@ -15,47 +15,34 @@ ENV \
     # Timezone
     TZ="UTC" \
 
-    # Confd settings
-    CONFD_VERSION=0.11.0 \
-    CONFD_PATH=github.com/kelseyhightower/confd
-    CONFD_REPO=https://github.com/kelseyhightower/confd.git \
-    CONFD_BRANCH=master \
-    GOPATH=/usr/local \
-    GO17VENDOREXPERIMENT=1
+    # Mailhog version
+    MAILHOG_VERSION=0.2.1
+
 
 # A little bit of metadata management.
 # See http://label-schema.org/  
 LABEL org.label-schema.schema-version="1.0" \
       org.label-schema.build-date=$BUILD_DATE \
-      org.label-schema.vendor="DASPANEL" \
       org.label-schema.version=$VERSION \
       org.label-schema.vcs-url=$VCS_URL \
       org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.name="base-api" \
-      org.label-schema.description="This service provides mail catcher daemon to Daspanel." \
-      org.label-schema.architecture="x86_64" \
-      org.label-schema.distribution="Alpine Linux" \
-      org.label-schema.distribution-version="3.4" \
+      org.label-schema.name="mail-catcher" \
+      org.label-schema.description="This service provides mail catcher daemon to Daspanel."
 
-RUN set -ex \
-    && apk add --no-cache --virtual .build-deps \
-        bash gcc musl-dev openssl go git \
+RUN set -x \
 
-    && git clone \
-        -b ${CONFD_BRANCH} \
-        ${CONFD_REPO} \
-        /usr/local/src/${CONFD_PATH} \
-  
-    && cd /usr/local/src/${CONFD_PATH} \
-    && go build -o /usr/bin/confd \
-
-    && apk del .build-deps \
-    
-    && rm -rf \
-        /var/cache/apk/* \
-        /usr/local/*
+    # Install mailhog
+    && wget -O /usr/bin/mailhog https://github.com/mailhog/MailHog/releases/download/v${MAILHOG_VERSION}/MailHog_linux_amd64 \
+    && chmod 755 /usr/bin/mailhog \
+    && rm -rf /var/cache/apk/* /tmp/*
 
 # Inject files in container file system
 COPY rootfs /
 
+# Ativate S6
+ENTRYPOINT ["/init"]
+CMD []
+
+# Expose ports for the mail catch service
+EXPOSE 1025 8025
 

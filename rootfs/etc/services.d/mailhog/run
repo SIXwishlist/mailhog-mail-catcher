@@ -1,0 +1,7 @@
+#!/usr/bin/with-contenv sh
+
+HOSTNAME=`cat /opt/daspanel/data/$DASPANEL_SYS_UUID/db/sysconfig.json | /usr/bin/jq -r '.sys.hostname'`
+
+exec su-exec daspanel:daspanel /usr/bin/mailhog \
+    -auth-file=/etc/daspanel/mailhog/auth.db \
+    -hostname $HOSTNAME

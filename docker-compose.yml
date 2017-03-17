@@ -1,25 +1,20 @@
-
 version: '2'
 services:
-    daspanel-mailhog-mail-catcher:
+    daspanel-mail-catcher:
         build:
             context: .
             dockerfile: Dockerfile
         image: daspanel/mailhog-mail-catcher
         volumes:
-            - daspanel-data:/opt/daspanel/data
+            - ./data:/opt/daspanel/data
         networks:
             - frontend
             - backend
+        ports:
+            - "1025:1025"
+            - "8025:8025"
         env_file:
             - daspanel.env
-            - smtp.env
-
-volumes:
-    daspanel-data:
-        external:
-            name: daspanel-data
-
 networks:  
   frontend:
     driver: bridge
