@@ -4,4 +4,4 @@ HOSTNAME=`cat /opt/daspanel/data/$DASPANEL_SYS_UUID/db/sysconfig.json | /usr/bin
 
 exec su-exec daspanel:daspanel /usr/bin/mailhog \
     -auth-file=/etc/daspanel/mailhog/auth.db \
-    -hostname $HOSTNAME
+    -hostname $HOSTNAME > /dev/null 2>&1
