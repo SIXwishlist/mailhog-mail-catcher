@@ -4,6 +4,7 @@
 __Changes__
 
 - bumped to version 0.2.0
+- Modified container initialization to get system settings using an API call.
 - Redirected mailhog logs to /dev/null to prevent disclosure of sensitive information
 - See changes in CHANGELOG.md
 - bumped to version 0.1.1
