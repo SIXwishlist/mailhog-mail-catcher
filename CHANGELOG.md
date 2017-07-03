@@ -3,25 +3,30 @@
 ### mailhog-mail-catcher-0.2.0
 __Changes__
 
-- See changes in CHANGELOG.md
-- bumped to version 0.2.0
-- Redirected mailhog logs to /dev/null to prevent disclosure of sensitive information
-- See changes in CHANGELOG.md
-- bumped to version 0.1.1
-- Make container compatible with new Daspanel init/configuration system
-- first commit
+
+Released by N/A, Mon 03 Jul 2017 -
+[see the diff](https://github.com/admindaspanel/mailhog-mail-catcher/compare/...#diff)
+______________
+
+### 0.4.0
+__Changes__
+
+- bumped to version 0.4.0
+- Removed dependence from daspanel/alpine-base.
 
 __Contributors__
 
 - Abner G Jacobsen
+- admindaspanel
 
-Released by Abner G Jacobsen, Thu 22 Jun 2017 -
-[see the diff](https://github.com/admindaspanel/mailhog-mail-catcher/compare/...#diff)
+Released by Abner G Jacobsen, Mon 03 Jul 2017 -
+[see the diff](https://github.com/admindaspanel/mailhog-mail-catcher/compare/0.3.0...0.4.0#diff)
 ______________
 
 ### 0.3.0
 __Changes__
 
+- See changes in CHANGELOG.md
 - bumped to version 0.3.0
 - Modified version numbering system.
 - Merge pull request #2 from daspanel/sites-config
